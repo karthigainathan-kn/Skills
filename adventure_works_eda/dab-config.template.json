@@ -1,0 +1,110 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/latest/download/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "Server=localhost,1433;Database=AdventureWorks2019;User Id=mcp_readonly;Password=REPLACE_WITH_LOCAL_PASSWORD;TrustServerCertificate=True;"
+  },
+  "runtime": {
+    "rest": {
+      "enabled": true
+    },
+    "graphql": {
+      "enabled": false
+    },
+    "mcp": {
+      "enabled": true,
+      "dml-tools": {
+        "describe-entities": true,
+        "create-record": false,
+        "read-records": true,
+        "update-record": false,
+        "delete-record": false,
+        "execute-entity": false,
+        "aggregate-records": true
+      }
+    },
+    "host": {
+      "mode": "development",
+      "cors": {
+        "origins": [],
+        "allow-credentials": false
+      }
+    }
+  },
+  "autoentities": {
+    "adventureworks": {
+      "patterns": {
+        "include": [
+          "%.%"
+        ],
+        "exclude": [
+          "Production.BillOfMaterials"
+        ]
+      },
+      "template": {
+        "graphql": {
+          "enabled": false
+        },
+        "mcp": true
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "entities": {
+    "Production_BillOfMaterials": {
+      "source": {
+        "type": "table",
+        "object": "Production.BillOfMaterials"
+      },
+      "fields": [
+        {
+          "name": "BillOfMaterialsID",
+          "primary-key": true
+        },
+        {
+          "name": "ProductAssemblyID"
+        },
+        {
+          "name": "ComponentID"
+        },
+        {
+          "name": "StartDate"
+        },
+        {
+          "name": "EndDate"
+        },
+        {
+          "name": "UnitMeasureCode"
+        },
+        {
+          "name": "BOMLevel"
+        },
+        {
+          "name": "PerAssemblyQty"
+        },
+        {
+          "name": "ModifiedDate"
+        }
+      ],
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
